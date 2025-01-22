@@ -40,10 +40,14 @@ public Jaxb2Marshaller marshaller() {
 //        marshaller.setPackagesToScan("target/generated-sources/cxf/org/tempuri");
 
         marshaller.setClassesToBeBound(
-                org.tempuri.Add.class,
-                org.tempuri.AddResponse.class,
-                org.tempuri.Subtract.class,
-                org.tempuri.Multiply.class
+                com.example.generated.Add.class,
+                com.example.generated.AddResponse.class,
+                com.example.generated.Subtract.class,
+                com.example.generated.SubtractResponse.class,
+                com.example.generated.Multiply.class,
+                com.example.generated.MultiplyResponse.class,
+                com.example.generated.Divide.class,
+                com.example.generated.DivideResponse.class
         );
     } catch (Exception e) {
         throw new RuntimeException("Failed to configure JAXB marshaller", e);

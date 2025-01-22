@@ -31,63 +31,69 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
-		</dependency>
+			<!-- Spring Boot Starter Web (for web services and REST) -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+			</dependency>
 
-			<!-- Spring Boot DevTools for auto-restart and other features -->
+			<!-- Spring Boot Starter Web Services (for SOAP web services) -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web-services</artifactId>
+			</dependency>
+
+			<!-- Spring Boot DevTools (for auto-restart and live reload during development) -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-devtools</artifactId>
-				<scope>runtime</scope> <!-- This ensures it's only used during development -->
+				<scope>runtime</scope>
 			</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+
+			<!-- Testing dependencies for Spring Boot -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- Jakarta JAXB API (for JAXB 3.x) -->
 			<dependency>
 				<groupId>jakarta.xml.bind</groupId>
 				<artifactId>jakarta.xml.bind-api</artifactId>
-				<version>4.0.2</version> <!-- Make sure it's the correct version -->
+				<version>4.0.0</version> <!-- Ensure it's the latest compatible version -->
 			</dependency>
 
-			<!-- JAXB Runtime Implementation (Glassfish JAXB) -->
+			<!-- JAXB Runtime Implementation (Glassfish JAXB for Jakarta JAXB) -->
+<!--			<dependency>-->
+<!--				<groupId>org.glassfish.jaxb</groupId>-->
+<!--				<artifactId>jaxb-runtime</artifactId>-->
+<!--				<version>4.0.0</version> &lt;!&ndash; Ensure compatibility with Jakarta JAXB &ndash;&gt;-->
+<!--			</dependency>-->
+
+			<!-- Apache CXF Plugin for WSDL to Java code generation (for SOAP Web Services) -->
 			<dependency>
-				<groupId>org.glassfish.jaxb</groupId>
-				<artifactId>jaxb-runtime</artifactId>
-				<version>2.3.5</version> <!-- Ensure you use a compatible version -->
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-codegen-plugin</artifactId>
+				<version>3.6.0</version>
+				<scope>compile</scope>
 			</dependency>
 		<dependency>
-			<groupId>jakarta.xml.bind</groupId>
-			<artifactId>jakarta.xml.bind-api</artifactId>
-			<version>4.0.0</version> <!-- Adjust to the latest compatible version -->
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-tools</artifactId>
+			<version>3.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>jakarta.jws</groupId>
+			<artifactId>jakarta.jws-api</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.glassfish.jaxb</groupId>
 			<artifactId>jaxb-runtime</artifactId>
-			<version>4.0.0</version> <!-- Adjust to the latest compatible version -->
+			<version>3.0.1</version> <!-- Adjust the version as needed -->
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
-		</dependency>
-			<dependency>
-				<groupId>org.glassfish.jaxb</groupId>
-				<artifactId>jaxb-runtime</artifactId>
-				<version>4.0.2</version>
-			</dependency>
-			<dependency>
-				<groupId>org.glassfish.jaxb</groupId>
-				<artifactId>jaxb-xjc</artifactId>
-				<version>4.0.2</version>
-			</dependency>
-
 
 	</dependencies>
 
@@ -99,33 +105,55 @@
 			</plugin>
 
 
+<!--			<plugin>-->
+<!--				<groupId>org.apache.cxf</groupId>-->
+<!--				<artifactId>cxf-codegen-plugin</artifactId>-->
+<!--				<version>3.6.0</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<id>generate-sources</id>-->
+<!--						<phase>generate-sources</phase>-->
+<!--						<goals>-->
+<!--							<goal>wsdl2java</goal>-->
+<!--						</goals>-->
+<!--						<configuration>-->
+
+<!--							<wsdlOptions>-->
+<!--								<wsdlOption>-->
+<!--									<wsdl>${project.basedir}/src/main/resources/wsdl/calculator.wsdl</wsdl>-->
+<!--&lt;!&ndash;									<bindingFiles>&ndash;&gt;-->
+<!--&lt;!&ndash;										<bindingFile>${project.basedir}/src/main/resources/bindings.xml</bindingFile> &lt;!&ndash; Optional, if you have a bindings.xml &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;									</bindingFiles>&ndash;&gt;-->
+<!--									<bindingFiles>-->
+<!--										<bindingFile>${project.basedir}/src/main/resources/bindings.xml</bindingFile>-->
+<!--									</bindingFiles>-->
+<!--								</wsdlOption>-->
+<!--							</wsdlOptions>-->
+<!--							<outputDir>${project.build.directory}/generated-sources/cxf</outputDir>-->
+<!--						</configuration>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
+
 			<plugin>
-				<groupId>org.apache.cxf</groupId>
-				<artifactId>cxf-codegen-plugin</artifactId>
-				<version>3.6.0</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>2.6</version>
 				<executions>
 					<execution>
-						<id>generate-sources</id>
-						<phase>generate-sources</phase>
 						<goals>
-							<goal>wsdl2java</goal>
+							<goal>wsimport</goal>
 						</goals>
 						<configuration>
-
-							<wsdlOptions>
-								<wsdlOption>
-									<wsdl>${project.basedir}/src/main/resources/wsdl/calculator.wsdl</wsdl>
-<!--									<bindingFiles>-->
-<!--										<bindingFile>${project.basedir}/src/main/resources/bindings.xml</bindingFile> &lt;!&ndash; Optional, if you have a bindings.xml &ndash;&gt;-->
-<!--									</bindingFiles>-->
-								</wsdlOption>
-							</wsdlOptions>
-							<outputDir>${project.build.directory}/generated-sources/cxf</outputDir>
+							<wsdlFiles>
+								<wsdlFile>${basedir}/src/main/resources/wsdl/calculator.wsdl</wsdlFile>
+							</wsdlFiles>
+							<packageName>com.example.generated</packageName>
+							<sourceDestDir>${project.build.directory}/generated-sources/jaxws</sourceDestDir>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-
 
 
 		</plugins>

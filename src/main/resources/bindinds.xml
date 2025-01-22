@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/jaxb"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               jaxb:version="2.3">
+    <jaxb:schemaBindings>
+        <jaxb:package name="com.example.generated" />
+        <!-- Use Jakarta annotations instead of javax -->
+        <jaxb:globalBindings>
+            <jaxb:package name="com.example.generated" />
+            <jaxb:contextPath>com.example.generated</jaxb:contextPath>
+            <jaxb:extensionBindingPrefixes>jakarta</jaxb:extensionBindingPrefixes>
+        </jaxb:globalBindings>
+    </jaxb:schemaBindings>
+</jaxb:bindings>
